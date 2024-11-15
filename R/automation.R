@@ -2,8 +2,6 @@
 #'
 #' @param dataframe
 #' @param covariates
-#' @param lag
-#' @param lead
 #' @param nlags
 #' @param nleads
 #' @param vlags
@@ -15,14 +13,12 @@
 #' @export
 #'
 #' @examples
-data.frame.lag.lead = function(dataframe, covariates, lag = FALSE, lead = FALSE,
+data.frame.lag.lead = function(dataframe, covariates,
                                nlags = 0, nleads = 0, vlags = c(), vleads = c(),
                                grouping = NA, skips = 1) {
   # INPUTS
   # dataframe: input data
   # covariates: vector of strings that specify covariates to lag in the dataframe
-  # lag: determines if function will lag
-  # lead: determines if function will lead
   # nlags: number of times to lag the covariates in the dataframe
   # nleads: number of times to lead the covariates in the dataframe
   # vlags: vector containing integers for more control of how many lags, overrides nlags & skips
@@ -34,20 +30,38 @@ data.frame.lag.lead = function(dataframe, covariates, lag = FALSE, lead = FALSE,
   # dataframe : input data with new lagged/lead columns
   # new.covariates : vector of strings with new column names
 
-  new.covariates = vector() # holds new column names
-  group.count = 1 # number of groupings in the dataframe, such as separate idcollar groups
+  if (nlags > 0 | !is.null(vlags)) to.lag = TRUE else to.lag = FALSE
+  if (nleads > 0 | !is.null(vleads)) to.lead = TRUE else to.lead = FALSE
 
-  if (lag & lead) {
+  if (nlags == 0 & nleads == 0 & is.null(vlags) & is.null(vlags)) {
+
+    # if user does not specify any lag or lead arguments, default behavior
+    # will be one lag
+
+    # give placeholder variables the appropriate lagging values
+    func = dplyr::lag
+    prefix = "prev"
+    n.level = 1
+    vec = vlags
+    skips = 1
+
+    warning("Lagged covariates by 1 as default behavior, specify nlags, vlags, or lead
+            equivalents to change behavior")
+
+  }
+  else if ((to.lag & to.lead) ) {
 
     # recursively call function to lag and lead separately
-    lagging = data.frame.lag.lead(dataframe, covariates, lag, lead = FALSE, nlags, nleads, vlags = vlags, vleads = c(), grouping, skips)
-    leading = data.frame.lag.lead(lagging[[1]], covariates, lag = FALSE, lead, nlags, nleads, vlags = c(), vleads = vleads, grouping, skips)
+    lagging = data.frame.lag.lead(dataframe, covariates, nlags = nlags, vlags = vlags,
+                                  grouping = grouping, skips = skips)
+    leading = data.frame.lag.lead(lagging[[1]], covariates, nleads = nleads, vleads = vleads,
+                                  grouping = grouping, skips = skips)
 
     # return final data frame object and combine the lag & lead new.covariates vectors
     return(list(dataframe = leading[[1]],
                 new.covariates = c(lagging[[2]], leading[[2]])))
 
-  } else if (lag) {
+  } else if (to.lag) {
 
     if (nlags == 0) return(list(dataframe, c())) # do nothing
 
@@ -57,7 +71,7 @@ data.frame.lag.lead = function(dataframe, covariates, lag = FALSE, lead = FALSE,
     n.level = nlags
     vec = vlags
 
-  } else if (lead) {
+  } else if (to.lead) {
 
     if (nleads == 0) return(list(dataframe, c())) # do nothing
 
@@ -110,10 +124,14 @@ data.frame.lag.lead = function(dataframe, covariates, lag = FALSE, lead = FALSE,
       dplyr::ungroup()
   }
 
+  if (to.lag) {
+    message(length(new.covariates), " new lag columns in dataframe")
+  } else if (to.lead) {
+    message(length(new.covariates), " new lead columns in dataframe")
+  }
+
   # returns new, mutated dataframe and new column names
   return(list(dataframe = dataframe,
               new.covariates = new.covariates))
 
 }
-
-
