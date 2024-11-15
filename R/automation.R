@@ -74,7 +74,7 @@ data.frame.lag.lead = function(dataframe, covariates, lag = FALSE, lead = FALSE,
     # in nonsensical ways, such as the last entry from animal 1 being included as a previous
     # entry for the first entry of animal 2
     dataframe = dataframe |>
-      dplyr::group_by(!!sym(grouping))
+      dplyr::group_by(!!rlang::sym(grouping))
     group.count = length(unique(dataframe[[grouping]]))
   }
 
@@ -101,13 +101,13 @@ data.frame.lag.lead = function(dataframe, covariates, lag = FALSE, lead = FALSE,
   # iterate over the new vectors to mutate the appropriate lag/lead data & column names
   for (i in 1:length(new.covariates)) {
     dataframe = dataframe %>%
-      dplyr::mutate(!!new.covariates[[i]] := func(!!sym(repeated.covariates[[i]]),
+      dplyr::mutate(!!new.covariates[[i]] := func(!!rlang::sym(repeated.covariates[[i]]),
                                              n=lag.lead.distance[[i]]))
   }
 
   if (!is.na(grouping)) {
     dataframe = dataframe |>
-      ungroup()
+      dplyr::ungroup()
   }
 
   # returns new, mutated dataframe and new column names
