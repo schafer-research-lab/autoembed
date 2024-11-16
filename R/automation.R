@@ -33,6 +33,8 @@ data.frame.lag.lead = function(dataframe, covariates,
   if (nlags > 0 | !is.null(vlags)) to.lag = TRUE else to.lag = FALSE
   if (nleads > 0 | !is.null(vleads)) to.lead = TRUE else to.lead = FALSE
 
+  new.covariates = vector()
+
   if (!to.lag & !to.lead) {
 
     # if user does not specify any lag or lead arguments, default behavior
