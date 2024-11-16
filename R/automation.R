@@ -85,7 +85,6 @@ data.frame.lag.lead = function(dataframe, covariates,
     # entry for the first entry of animal 2
     dataframe = dataframe |>
       dplyr::group_by(!!rlang::sym(grouping))
-    group.count = length(unique(dataframe[[grouping]]))
   }
 
   # prepare names to be used in mutate & lag/lead functions:
