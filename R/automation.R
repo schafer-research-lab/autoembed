@@ -63,8 +63,6 @@ data.frame.lag.lead = function(dataframe, covariates,
 
   } else if (to.lag) {
 
-    if (nlags == 0) return(list(dataframe, c())) # do nothing
-
     # give placeholder variables the appropriate lagging values
     func = dplyr::lag
     prefix = "prev"
@@ -72,8 +70,6 @@ data.frame.lag.lead = function(dataframe, covariates,
     vec = vlags
 
   } else if (to.lead) {
-
-    if (nleads == 0) return(list(dataframe, c())) # do nothing
 
     # give placeholder variables the appropriate leading values
     func = dplyr::lead
