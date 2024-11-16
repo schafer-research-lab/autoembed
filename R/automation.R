@@ -50,7 +50,7 @@ data.frame.lag.lead = function(dataframe, covariates,
             equivalents to change behavior")
 
   }
-  else if ((to.lag & to.lead) ) {
+  else if ((to.lag & to.lead)) {
 
     # recursively call function to lag and lead separately
     lagging = data.frame.lag.lead(dataframe, covariates, nlags = nlags, vlags = vlags,
