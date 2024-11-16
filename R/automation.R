@@ -33,12 +33,11 @@ data.frame.lag.lead = function(dataframe, covariates,
   if (nlags > 0 | !is.null(vlags)) to.lag = TRUE else to.lag = FALSE
   if (nleads > 0 | !is.null(vleads)) to.lead = TRUE else to.lead = FALSE
 
-  if (nlags == 0 & nleads == 0 & is.null(vlags) & is.null(vlags)) {
+  if (!to.lag & !to.lead) {
 
     # if user does not specify any lag or lead arguments, default behavior
     # will be one lag
 
-    # give placeholder variables the appropriate lagging values
     func = dplyr::lag
     prefix = "prev"
     n.level = 1
