@@ -1,15 +1,23 @@
-#' Title
+#' Generate temporal lead or lag embeddings
 #'
-#' @param dataframe
-#' @param covariates
-#' @param nlags
-#' @param nleads
-#' @param vlags
-#' @param vleads
-#' @param grouping
-#' @param skips
+#' @param dataframe a tidy dataframe
+#' @param covariates a character vector of strings that specify covariates to lag in the dataframe
+#' @param nlags integer number of times to lag the covariates (default 0)
+#' @param nleads integer number of times to lead the covariates (default 0)
+#' @param vlags vector of integers for creating multiple lags, overrides nlags & skips (default c())
+#' @param vleads vector of integers for creating multiple leads, overrides nleads & skips (default c())
+#' @param grouping string specifying column name to group data by to ensure that lagging does not go across groups
+#' @param skips integer number of entries to skip across each separate lag (default 1)
 #'
 #' @return
+#' A named list with two components
+#'
+#'   \item{dataframe}{A dataframe with the original columns of the input dataframe and additional columns}
+#'   \item{new.covariates}{A character vector of the additional columns names}
+#'
+#' The additional column names are created with the following string pattern:
+#'
+#'
 #' @export
 #'
 #' @examples

@@ -2,7 +2,7 @@
 % Please edit documentation in R/automation.R
 \name{data.frame.lag.lead}
 \alias{data.frame.lag.lead}
-\title{Title}
+\title{Generate temporal lead or lag embeddings}
 \usage{
 data.frame.lag.lead(
   dataframe,
@@ -16,8 +16,30 @@ data.frame.lag.lead(
 )
 }
 \arguments{
-\item{skips}{}
+\item{dataframe}{a tidy dataframe}
+
+\item{covariates}{a character vector of strings that specify covariates to lag in the dataframe}
+
+\item{nlags}{integer number of times to lag the covariates (default 0)}
+
+\item{nleads}{integer number of times to lead the covariates (default 0)}
+
+\item{vlags}{vector of integers for creating multiple lags, overrides nlags & skips (default c())}
+
+\item{vleads}{vector of integers for creating multiple leads, overrides nleads & skips (default c())}
+
+\item{grouping}{string specifying column name to group data by to ensure that lagging does not go across groups}
+
+\item{skips}{integer number of entries to skip across each separate lag (default 1)}
+}
+\value{
+A named list with two components
+
+\item{dataframe}{dataframe with the original columns of the input dataframe and additional columns}
+\item{new.covariates}{a character vector of the additional columns names}
+
+The additional column names are created with the following string pattern:
 }
 \description{
-Title
+Generate temporal lead or lag embeddings
 }
