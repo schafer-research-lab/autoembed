@@ -110,7 +110,7 @@ data.frame.lag.lead = function(dataframe, covariates,
 
   # iterate over the new vectors to mutate the appropriate lag/lead data & column names
   for (i in 1:length(new.covariates)) {
-    dataframe = dataframe %>%
+    dataframe = dataframe |>
       dplyr::mutate(!!new.covariates[[i]] := func(!!rlang::sym(repeated.covariates[[i]]),
                                              n=lag.lead.distance[[i]]))
   }

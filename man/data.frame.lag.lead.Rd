@@ -7,8 +7,6 @@
 data.frame.lag.lead(
   dataframe,
   covariates,
-  lag = FALSE,
-  lead = FALSE,
   nlags = 0,
   nleads = 0,
   vlags = c(),
