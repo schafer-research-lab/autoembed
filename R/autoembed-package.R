@@ -7,6 +7,7 @@
 #' @importFrom dplyr lead
 #' @importFrom dplyr mutate
 #' @importFrom dplyr ungroup
+#' @importFrom rlang :=
 #' @importFrom rlang sym
 ## usethis namespace: end
 NULL

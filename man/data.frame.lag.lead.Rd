@@ -35,8 +35,8 @@ data.frame.lag.lead(
 \value{
 A named list with two components
 
-\item{dataframe}{dataframe with the original columns of the input dataframe and additional columns}
-\item{new.covariates}{a character vector of the additional columns names}
+\item{dataframe}{A dataframe with the original columns of the input dataframe and additional columns}
+\item{new.covariates}{A character vector of the additional columns names}
 
 The additional column names are created with the following string pattern:
 }

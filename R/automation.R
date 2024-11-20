@@ -21,22 +21,18 @@
 #' @export
 #'
 #' @examples
+#'
+#' df <- data.frame(x = 1:20,
+#'                  y = 20:1)
+#'
+#' df_lag <- data.frame.lead.lag(df, covariates = "x")
+#' df_lead <- data.frame.lead.lag(df, covariates = "x", nleads = 1)
+
+
 data.frame.lag.lead = function(dataframe, covariates,
                                nlags = 0, nleads = 0, vlags = c(), vleads = c(),
                                grouping = NA, skips = 1) {
-  # INPUTS
-  # dataframe: input data
-  # covariates: vector of strings that specify covariates to lag in the dataframe
-  # nlags: number of times to lag the covariates in the dataframe
-  # nleads: number of times to lead the covariates in the dataframe
-  # vlags: vector containing integers for more control of how many lags, overrides nlags & skips
-  # vleads: vector containing integers for more control of how many leads, overrides nleads & skips
-  # grouping: the column name to group data by to ensure that lagging does not go across groups
-  # skips: number of entries to skip across each separate lag
 
-  # OUTPUTS
-  # dataframe : input data with new lagged/lead columns
-  # new.covariates : vector of strings with new column names
 
   if (nlags > 0 | !is.null(vlags)) to.lag = TRUE else to.lag = FALSE
   if (nleads > 0 | !is.null(vleads)) to.lead = TRUE else to.lead = FALSE
