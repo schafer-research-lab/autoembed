@@ -25,11 +25,11 @@
 #' df <- data.frame(x = 1:20,
 #'                  y = 20:1)
 #'
-#' df_lag <- data.frame.lead.lag(df, covariates = "x")
-#' df_lead <- data.frame.lead.lag(df, covariates = "x", nleads = 1)
+#' df_lag <- data.frame_lag_lead(df, covariates = "x")
+#' df_lead <- data.frame_lag_lead(df, covariates = "x", nleads = 1)
 
 
-data.frame.lag.lead = function(dataframe, covariates,
+data.frame_lag_lead = function(dataframe, covariates,
                                nlags = 0, nleads = 0, vlags = c(), vleads = c(),
                                grouping = NA, skips = 1) {
 
