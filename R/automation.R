@@ -57,9 +57,9 @@ data.frame_lag_lead = function(dataframe, covariates,
   else if ((to.lag & to.lead)) {
 
     # recursively call function to lag and lead separately
-    lagging = data.frame.lag.lead(dataframe, covariates, nlags = nlags, vlags = vlags,
+    lagging = data.frame_lag_lead(dataframe, covariates, nlags = nlags, vlags = vlags,
                                   grouping = grouping, skips = skips)
-    leading = data.frame.lag.lead(lagging[[1]], covariates, nleads = nleads, vleads = vleads,
+    leading = data.frame_lag_lead(lagging[[1]], covariates, nleads = nleads, vleads = vleads,
                                   grouping = grouping, skips = skips)
 
     # return final data frame object and combine the lag & lead new.covariates vectors
